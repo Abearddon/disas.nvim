@@ -175,10 +175,14 @@ do
 	function _linked_buffers:reload()
 		local _, command = assert(self.compilation_database:get_command_for_file(self.denormalized_file_path));
 		if self.compilation_database.is_cflags then
+			print("is_cflags");
+
 			local file_name = vim.fs.basename(self.denormalized_file_path);
 			local o_file = file_name:gsub("%.(%w+)$", ".o");
 
 			command = command .. " " .. file_name .. " -o " .. o_file;
+
+			print("new cmd", command);
 		end
 
 		return assert(self:generate(command));
